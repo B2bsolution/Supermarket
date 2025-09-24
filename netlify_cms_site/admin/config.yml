@@ -1,0 +1,48 @@
+backend:
+  name: git-gateway
+  branch: main
+
+
+media_folder: "static/img"    # carpeta donde se guardarán las imágenes en el repositorio
+public_folder: "/img"         # ruta pública de las imágenes en el sitio
+
+collections:
+  # Colección para modificar secciones fijas de la página
+  - name: paginas
+    label: Páginas
+    files:
+      - file: "data/nosotros.md"
+        label: "¿Quiénes somos?"
+        name: nosotros
+        fields:
+          - {label: "Título", name: title, widget: string}
+          - {label: "Cuerpo", name: body, widget: markdown}
+      - file: "data/contacto.md"
+        label: "Contacto"
+        name: contacto
+        fields:
+          - {label: "Título", name: title, widget: string}
+          - {label: "Teléfono", name: phone, widget: string}
+          - {label: "Email", name: email, widget: string}
+          - {label: "Dirección", name: address, widget: string}
+          - {label: "Texto", name: body, widget: markdown}
+
+  # Colección para gestionar productos
+  - name: productos
+    label: Productos
+    folder: "data/productos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Título", name: title, widget: string}
+      - {label: "Descripción", name: desc, widget: text}
+      - {label: "Imagen", name: img, widget: image}
+      - {label: "Categoría", name: category, widget: select, options: ["frutas", "embutidos", "lacteos", "panaderia", "bebidas", "zumos", "congelados", "helados", "higiene", "limpieza", "mascotas", "barbacoa"]}
+      - label: "Opciones"
+        name: options
+        widget: list
+        summary: "{{fields.name}}"
+        fields:
+          - {label: "Tipo", name: type, widget: string}
+          - {label: "Nombre", name: name, widget: string}
+          - {label: "Valores", name: values, widget: list, required: false}
